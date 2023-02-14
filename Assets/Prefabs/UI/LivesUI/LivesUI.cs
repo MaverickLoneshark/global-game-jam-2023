@@ -6,7 +6,10 @@ using UnityEngine.SceneManagement;
 using TMPro;
 
 public class LivesUI : MonoBehaviour {
-	[SerializeField] private int startingLives = 2;
+	public static LivesUI instance;
+
+	[SerializeField] private int remainingLives = 2;
+
 	private static TextMeshProUGUI textMeshPro;
 	private static int lives;
 
@@ -18,24 +21,33 @@ public class LivesUI : MonoBehaviour {
 		set {
 			lives = value;
 
-			if (lives < 0) {
-				SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-			}
+			if (instance) {
+				if (lives < 0) {
+					SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+				}
 
-			textMeshPro.text = "x " + lives;
+				instance.remainingLives = lives;
+				textMeshPro.text = "x " + lives;
+			}
 		}
 	}
 
 	void Awake() {
-		textMeshPro = transform.Find("Counter").GetComponent<TextMeshProUGUI>();
-		Lives = startingLives;
+		if (!instance) {
+			instance = this;
+			textMeshPro = transform.Find("Counter").GetComponent<TextMeshProUGUI>();
+			Lives = remainingLives;
+		}
+		else {
+			Destroy(gameObject);
+		}
 	}
 
 	// Update is called once per frame
 	void Update() {
 		#if UNITY_EDITOR
-			if (Lives != startingLives) {
-				Lives = startingLives;
+			if (remainingLives != Lives) {
+				Lives = remainingLives;
 			}
 		#endif
 	}
