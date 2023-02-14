@@ -4,6 +4,16 @@ body {
 	background-color: #000000;
 }
 
+h1, h2, h3, h4,
+div {
+	text-align: center;
+	color: #808080;
+}
+
+section {
+	margin-bottom: 8px;
+}
+
 #unity-container {
 	position: absolute;
 }
