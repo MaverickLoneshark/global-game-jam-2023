@@ -29,7 +29,7 @@ public class TreeSpawn : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.E)) 
             {
-                Debug.Log("Grow to the heavens!");
+//Debug.Log("Grow to the heavens!");
                 treeVisualAnimator.SetTrigger("Grow");
                 respawnPoint.transform.position = treeSpawnPoint.position;
             }
@@ -40,7 +40,7 @@ public class TreeSpawn : MonoBehaviour
     {
         if (collider.CompareTag("Player"))
         {
-Debug.Log("On Soil");
+//Debug.Log("On Soil");
             onSoil = true;
         }
     }
@@ -49,7 +49,7 @@ Debug.Log("On Soil");
     {
         if ((collider.CompareTag("Player")))
         {
-Debug.Log("Off Soil");
+//Debug.Log("Off Soil");
         onSoil = false;
         }
     }
