@@ -12,7 +12,7 @@ public class DisappearingPlatform : MonoBehaviour {
 	private Collider2D bodyCollider;
 	private Vector3 startingPosition;
 	private Vector3 targetPosition;
-	private float lastChangeTime;
+	private float lastChangeTime = 0;
 
 	void Awake() {
 		bodyCollider = GetComponent<Collider2D>();
@@ -25,12 +25,28 @@ public class DisappearingPlatform : MonoBehaviour {
 		else {
 			targetPosition = startingPosition + secondPosition;
 		}
+	}
 
+	private void Start() {
+		//Time is not defined until after Awake()!
 		lastChangeTime = Time.timeSinceLevelLoad;
 	}
 
+	private void Update() {
+		//
+	}
+
 	void FixedUpdate() {
-		if (Time.timeSinceLevelLoad >= (lastChangeTime + intervalDuration)) {
+		if (transform.localPosition != targetPosition) {
+			transform.localPosition += (targetPosition - transform.localPosition).normalized * speed;
+
+			if ((targetPosition - transform.localPosition).sqrMagnitude < 0.01f) {
+				transform.localPosition = targetPosition;
+				lastChangeTime = Time.timeSinceLevelLoad;
+				bodyCollider.enabled = (targetPosition == startingPosition);
+			}
+		}
+		else if (Time.timeSinceLevelLoad >= (lastChangeTime + intervalDuration)) {
 			if (transform.localPosition == startingPosition) {
 				targetPosition = startingPosition + secondPosition;
 			}
@@ -38,17 +54,7 @@ public class DisappearingPlatform : MonoBehaviour {
 				targetPosition = startingPosition;
 			}
 
-			lastChangeTime = Time.timeSinceLevelLoad;
-		}
-
-		if (transform.localPosition != targetPosition) {
-			transform.localPosition += (targetPosition - transform.localPosition).normalized * speed;
-
-			if ((targetPosition - transform.localPosition).sqrMagnitude < 0.01f) {
-				transform.localPosition = targetPosition;
-			}
-
-			bodyCollider.enabled = (targetPosition == startingPosition);
+			bodyCollider.enabled = false;
 		}
 	}
 

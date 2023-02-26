@@ -16,9 +16,9 @@ public class bokidController : MonoBehaviour {
 
     public float slidingSpeed;
 
-    /*[SerializeField]*/ private bool isGrounded;
-    /*[SerializeField]*/ private bool touchingLeftWall;
-    /*[SerializeField]*/ private bool touchingRightWall;
+    [SerializeField] private bool isGrounded;
+    [SerializeField] private bool touchingLeftWall;
+    [SerializeField] private bool touchingRightWall;
 
     public LayerMask whatIsGround;
 
@@ -151,5 +151,16 @@ public class bokidController : MonoBehaviour {
         isGrounded = touchedFloors.Count > 0;
         touchingRightWall = touchedRightWalls.Count > 0;
         touchingLeftWall = touchedLeftWalls.Count > 0;
+    }
+
+    public void Respawn() {
+        touchedFloors.Clear();
+        touchedRightWalls.Clear();
+        touchedLeftWalls.Clear();
+        isGrounded = false;
+        touchingRightWall = false;
+        touchingLeftWall = false;
+        rb_boi.velocity = Vector2.zero;
+        transform.position = RespawnPoint.instance.transform.position;
     }
 }

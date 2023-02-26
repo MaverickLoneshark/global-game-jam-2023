@@ -21,7 +21,7 @@ public class Hazard : MonoBehaviour {
 				color.b -= 0.25f;
 				meshRenderer.material.color = color;
 				LivesUI.Lives--;
-				collision.collider.transform.position = RespawnPoint.instance.transform.position;
+				collision.gameObject.GetComponent<bokidController>().Respawn();
 			}
 		}
 	}

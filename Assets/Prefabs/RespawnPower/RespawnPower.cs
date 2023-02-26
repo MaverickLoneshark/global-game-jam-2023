@@ -9,6 +9,7 @@ public class RespawnPower : MonoBehaviour {
 	bool powerEnabled = false;
 	SpriteRenderer spriteRenderer;
 	Collider2D triggerCollider;
+	bokidController playerController;
 
 	void Awake() {
 		spriteRenderer = GetComponent<SpriteRenderer>();
@@ -23,13 +24,14 @@ public class RespawnPower : MonoBehaviour {
 					LivesUI.Lives--;
 				}
 
-				transform.parent.position = RespawnPoint.instance.transform.position;
+				playerController.Respawn();
 			}
 		}
 	}
 
 	private void OnTriggerEnter2D(Collider2D collision) {
 		if (collision.gameObject.CompareTag("Player")) {
+			playerController = collision.gameObject.GetComponent<bokidController>();
 			transform.parent = collision.transform;
 			transform.localPosition = Vector3.zero;
 			powerEnabled = true;

@@ -11,7 +11,7 @@ public class TreeSpawn : MonoBehaviour
     [SerializeField] private Animator treeVisualAnimator;
 
     private Transform treeSpawnPoint;
-
+    private bokidController playerController;
     private bool onSoil;
 
     // Start is called before the first frame update
@@ -30,6 +30,9 @@ public class TreeSpawn : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.E)) 
             {
 //Debug.Log("Grow to the heavens!");
+                Vector2 position = playerController.transform.position;
+                position.x = treeSpawnPoint.position.x;
+                playerController.transform.position = position;
                 treeVisualAnimator.SetTrigger("Grow");
                 respawnPoint.transform.position = treeSpawnPoint.position;
             }
@@ -42,6 +45,10 @@ public class TreeSpawn : MonoBehaviour
         {
 //Debug.Log("On Soil");
             onSoil = true;
+
+            if (!playerController) {
+                playerController = collider.GetComponent<bokidController>();
+            }
         }
     }
 
