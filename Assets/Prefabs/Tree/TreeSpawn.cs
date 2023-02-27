@@ -60,4 +60,13 @@ public class TreeSpawn : MonoBehaviour
         onSoil = false;
         }
     }
+
+	private void OnDrawGizmos() {
+        if (!treeSpawnPoint) {
+            treeSpawnPoint = transform.Find("SpawnPoint");
+        }
+
+        Gizmos.color = Color.cyan;
+        Gizmos.DrawSphere(treeSpawnPoint.position, 0.1f);
+	}
 }
