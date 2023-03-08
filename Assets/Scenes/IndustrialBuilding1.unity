@@ -627,6 +627,63 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4432967160738011199, guid: 00e0aa3c3b9f78a43aa788086ece2b1a, type: 3}
   m_PrefabInstance: {fileID: 773146547}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &177946004
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 177946005}
+  - component: {fileID: 177946006}
+  m_Layer: 0
+  m_Name: SoundManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &177946005
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 177946004}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1447259311}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &177946006
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 177946004}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96a89e85021fa05418d7555d4e471a73, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentBGMTrack: 0
+  bgmClips:
+  - {fileID: 8300000, guid: 1b65b6d826aa77840ab31b4de920471d, type: 3}
+  - {fileID: 8300000, guid: 4057ffde39134eb4989bc6e757f3e822, type: 3}
+  - {fileID: 8300000, guid: bef0e8e0b20e4234bad5ddfebf5f7649, type: 3}
+  soundClips:
+  - {fileID: 8300000, guid: 3bbf38aa394936d40a0f408a5edf74d4, type: 3}
+  - {fileID: 8300000, guid: 1c1b537702c033942b56399cc0e81858, type: 3}
+  - {fileID: 8300000, guid: 538e85429f1c4e541be2630bcb819f77, type: 3}
+  - {fileID: 8300000, guid: b92133fff0c5809419a712ac54e69bb1, type: 3}
+  polyphony: 8
+  bgmPlayer: {fileID: 0}
+  soundPlayer: []
 --- !u!1 &203889478
 GameObject:
   m_ObjectHideFlags: 0
@@ -2917,6 +2974,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1325247392}
+  - component: {fileID: 1325247393}
   m_Layer: 0
   m_Name: Level
   m_TagString: Untagged
@@ -2952,6 +3010,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1325247393
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1325247391}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d404f6667c24ef3498ddef215f80e34b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bgmTrack: 0
 --- !u!4 &1329535177 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4432967160738011199, guid: 00e0aa3c3b9f78a43aa788086ece2b1a, type: 3}
@@ -3312,7 +3383,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 2, z: -10}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 177946005}
   m_Father: {fileID: 1521130599}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3913,7 +3985,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4714413270222269462, guid: 41fec925d86afd344ad8b40dd9917995, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -19.28
+      value: -19.25
       objectReference: {fileID: 0}
     - target: {fileID: 4714413270222269462, guid: 41fec925d86afd344ad8b40dd9917995, type: 3}
       propertyPath: m_LocalPosition.y
@@ -5272,19 +5344,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -3526641979221171863, guid: 41fec925d86afd344ad8b40dd9917995, type: 3}
       propertyPath: m_Size.x
-      value: 0.6
-      objectReference: {fileID: 0}
-    - target: {fileID: -3526641979221171863, guid: 41fec925d86afd344ad8b40dd9917995, type: 3}
-      propertyPath: m_Size.y
-      value: 1
+      value: 0.625
       objectReference: {fileID: 0}
     - target: {fileID: -3526641979221171863, guid: 41fec925d86afd344ad8b40dd9917995, type: 3}
       propertyPath: m_Offset.x
-      value: -0.03
-      objectReference: {fileID: 0}
-    - target: {fileID: -3526641979221171863, guid: 41fec925d86afd344ad8b40dd9917995, type: 3}
-      propertyPath: m_Offset.y
-      value: 0.33
+      value: -0.025
       objectReference: {fileID: 0}
     - target: {fileID: 4714413270222269462, guid: 41fec925d86afd344ad8b40dd9917995, type: 3}
       propertyPath: m_RootOrder

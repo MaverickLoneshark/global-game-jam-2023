@@ -20,6 +20,7 @@ public class Hazard : MonoBehaviour {
 				color.g += 0.25f;
 				color.b -= 0.25f;
 				meshRenderer.material.color = color;
+				SoundManager.PlaySound(1);
 				LivesUI.Lives--;
 				collision.gameObject.GetComponent<bokidController>().Respawn();
 			}
