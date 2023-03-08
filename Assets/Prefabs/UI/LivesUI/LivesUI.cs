@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 using TMPro;
 
 public class LivesUI : MonoBehaviour {
-	public static LivesUI instance;
+	private static LivesUI instance;
 
 	[SerializeField] private int remainingLives = 2;
 
@@ -25,21 +25,26 @@ public class LivesUI : MonoBehaviour {
 				if (lives < 0) {
 					SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
 				}
-
-				instance.remainingLives = lives;
-				textMeshPro.text = "x " + lives;
+				else {
+					instance.remainingLives = lives;
+					textMeshPro.text = "x " + lives;
+					
+					if (SoundManager.Ready) {
+						SoundManager.SetBGMPitch((lives < 2) ? 1.5f - (lives * 0.25f) : 1.0f);
+					}
+				}
 			}
 		}
 	}
 
 	void Awake() {
-		if (!instance) {
+		if (instance) {
+			Destroy(gameObject);
+		}
+		else {
 			instance = this;
 			textMeshPro = transform.Find("Counter").GetComponent<TextMeshProUGUI>();
 			Lives = remainingLives;
-		}
-		else {
-			Destroy(gameObject);
 		}
 	}
 

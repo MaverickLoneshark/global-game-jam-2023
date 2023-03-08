@@ -6,7 +6,8 @@ public class MessageUI : MonoBehaviour {
 	public static MessageUI instance;
 	[SerializeField] private TMPro.TextMeshProUGUI textMeshProUGUI;
 	[SerializeField] private float duration = 2.0f;
-	[SerializeField] private float fade_duration = 2.0f;
+	[SerializeField] private float fadeDuration = 2.0f;
+	[SerializeField] private string nextString;
 	private float endTime;
 
 	public static string Message {
@@ -16,11 +17,16 @@ public class MessageUI : MonoBehaviour {
 
 		set {
 			if (instance) {
-				instance.textMeshProUGUI.text = value;
-				Color color = instance.textMeshProUGUI.color;
-				color.a = 1f;
-				instance.textMeshProUGUI.color = color;
-				instance.endTime = Time.timeSinceLevelLoad + instance.duration;
+				if (Time.timeSinceLevelLoad >= (instance.endTime + instance.fadeDuration)) {
+					instance.textMeshProUGUI.text = value;
+					Color color = instance.textMeshProUGUI.color;
+					color.a = 1f;
+					instance.textMeshProUGUI.color = color;
+					instance.endTime = Time.timeSinceLevelLoad + instance.duration;
+				}
+				else {
+					instance.nextString = value;
+				}
 			}
 			else {
 				Debug.LogError("No Message.instance available");
@@ -46,17 +52,22 @@ public class MessageUI : MonoBehaviour {
 	// Update is called once per frame
 	void Update() {
 		if (Time.timeSinceLevelLoad > endTime) {
-			float fade_time = endTime + fade_duration;
+			float fade_time = endTime + fadeDuration;
 
 			if (Time.timeSinceLevelLoad < fade_time) {
 				Color color = textMeshProUGUI.color;
-				color.a = (fade_time - Time.timeSinceLevelLoad) / fade_duration;
+				color.a = (fade_time - Time.timeSinceLevelLoad) / fadeDuration;
 				textMeshProUGUI.color = color;
 			}
 			else if (textMeshProUGUI.color.a > 0) {
 				Color color = textMeshProUGUI.color;
 				color.a = 0;
 				textMeshProUGUI.color = color;
+
+				if (nextString != null) {
+					Message = nextString;
+					nextString = null;
+				}
 			}
 		}
 	}
