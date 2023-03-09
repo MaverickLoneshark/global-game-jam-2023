@@ -8,6 +8,7 @@ public class MessageUI : MonoBehaviour {
 	[SerializeField] private float duration = 2.0f;
 	[SerializeField] private float fadeDuration = 2.0f;
 	[SerializeField] private string nextString;
+	[SerializeField] private string persistentMessage = "";
 	private float endTime;
 
 	public static string Message {
@@ -51,7 +52,13 @@ public class MessageUI : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update() {
-		if (Time.timeSinceLevelLoad > endTime) {
+		if (Message == persistentMessage) {
+			if (textMeshProUGUI.color.a < 1) {
+				textMeshProUGUI.color = Color.white;
+				endTime = Time.timeSinceLevelLoad + duration;
+			}
+		}
+		else if (Time.timeSinceLevelLoad > endTime) {
 			float fade_time = endTime + fadeDuration;
 
 			if (Time.timeSinceLevelLoad < fade_time) {
@@ -64,11 +71,36 @@ public class MessageUI : MonoBehaviour {
 				color.a = 0;
 				textMeshProUGUI.color = color;
 
-				if (nextString != null) {
+				if (nextString.Length > 0) {
 					Message = nextString;
-					nextString = null;
+					nextString = "";
 				}
 			}
+			else if (persistentMessage.Length > 0) {
+				Message = persistentMessage;
+			}
 		}
+	}
+
+	public static void OverrideMessage(string message) {
+		if (instance) {
+			if (instance.textMeshProUGUI.color.a > 0) {
+				instance.endTime = Time.timeSinceLevelLoad - instance.duration;
+
+				if (Message != instance.persistentMessage) {
+					instance.nextString = Message;
+				}
+			}
+
+			Message = message;
+		}
+	}
+
+	public static void SetPersistentMessage(string message) {
+		instance.persistentMessage = message;
+	}
+
+	public static void ClearPersistentMessage() {
+		instance.persistentMessage = "";
 	}
 }
