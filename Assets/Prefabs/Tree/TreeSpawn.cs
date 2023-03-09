@@ -57,10 +57,10 @@ public class TreeSpawn : MonoBehaviour
 
             if (MessageUI.instance) {
                 if (!grown) {
-                    MessageUI.Message = "Press 'e' to grow tree";
+                    MessageUI.SetPersistentMessage("Press 'E' to grow tree");
                 }
                 else {
-                    MessageUI.Message = "Press 'e' to ascend tree";
+                    MessageUI.SetPersistentMessage("Press 'E' to ascend tree");
                 }
             }
         }
@@ -71,7 +71,11 @@ public class TreeSpawn : MonoBehaviour
         if ((collider.CompareTag("Player")))
         {
 //Debug.Log("Off Soil");
-        onSoil = false;
+            onSoil = false;
+
+            if (MessageUI.instance) {
+                MessageUI.ClearPersistentMessage();
+            }
         }
     }
 

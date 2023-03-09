@@ -39,10 +39,10 @@ public class RespawnPower : MonoBehaviour {
 			triggerCollider.enabled = false;
 
 			if (infiniteRespawns) {
-				MessageUI.Message = message;
+				MessageUI.OverrideMessage(message);
 			}
 			else {
-				MessageUI.Message = message + " (costs one life)";
+				MessageUI.OverrideMessage(message + " (costs one life)");
 			}
 		}
 	}
