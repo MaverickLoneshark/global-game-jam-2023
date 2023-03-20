@@ -6,8 +6,8 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/Menu.unity
-    guid: 1f1b9b57aa8e6074d854348780ebf32c
+    path: Assets/Scenes/TitleScreen.unity
+    guid: 97a1f55c159ceec40aa6c44c6e1d85d4
   - enabled: 1
     path: Assets/Scenes/Tutorial.unity
     guid: 3e21c30208c913c4bac003bf75a8466e
@@ -15,12 +15,18 @@ EditorBuildSettings:
     path: Assets/Scenes/IndustrialBuilding1.unity
     guid: 06c3879d8199a304b8663e00f4e1440e
   - enabled: 1
-    path: Assets/Scenes/WinScene.unity
-    guid: ad17c5771a0570446b879daae64ce4c3
+    path: Assets/Scenes/VictoryScene.unity
+    guid: 58cbf64a69979cb4eb65451ee7c21150
+  - enabled: 0
+    path: Assets/Scenes/Menu.unity
+    guid: 1f1b9b57aa8e6074d854348780ebf32c
   - enabled: 0
     path: Assets/Scenes/EchoScene.unity
     guid: 1cc463dc5c1da814f95bbed28db02197
   - enabled: 0
     path: Assets/Scenes/LonesharkTest.unity
     guid: af851507dec3911468bf008d57102047
+  - enabled: 0
+    path: Assets/Scenes/WinScene.unity
+    guid: ad17c5771a0570446b879daae64ce4c3
   m_configObjects: {}

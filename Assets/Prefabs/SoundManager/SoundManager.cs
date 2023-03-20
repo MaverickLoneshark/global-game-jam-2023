@@ -13,12 +13,13 @@ public class SoundManager : MonoBehaviour {
 
 	//consider decoupling sources from player
 	[SerializeField] private int currentBGMTrack = 0;
-	[SerializeField] private AudioClip [] bgmClips;
-	[SerializeField] private AudioClip [] soundClips;
+	[SerializeField] private AudioClip[] bgmClips;
+	[SerializeField] private AudioClip[] soundClips;
 
 	[SerializeField] private int polyphony = 8;
 	[SerializeField] private AudioSource bgmPlayer;
 	[SerializeField] private AudioSource[] soundPlayer;
+	[SerializeField] private bool isPaused = false;
 
 	void Awake() {
 		if (instance) {
@@ -37,6 +38,11 @@ public class SoundManager : MonoBehaviour {
 				soundPlayer[i].loop = false;
 			}
 		}
+	}
+
+	private void Start() {
+		AudioListener.volume = Settings.masterVolume;
+		bgmPlayer.volume = Settings.bgmVolume;
 	}
 
 	// Update is called once per frame
@@ -77,7 +83,12 @@ public class SoundManager : MonoBehaviour {
 	}
 
 	public static void PlayBGM() {
-		instance.bgmPlayer.Play();
+		if (instance.bgmPlayer.time > 0) {
+			instance.bgmPlayer.UnPause();
+		}
+		else {
+			instance.bgmPlayer.Play();
+		}
 	}
 
 	public static void PauseBGM() {
@@ -102,6 +113,7 @@ public class SoundManager : MonoBehaviour {
 			for (int i = 0, length = instance.soundPlayer.Length; i < length; i++) {
 				if (!instance.soundPlayer[i].isPlaying) {
 					instance.soundPlayer[i].clip = instance.soundClips[sound];
+					instance.soundPlayer[i].volume = Settings.soundFXVolume;
 					instance.soundPlayer[i].Play();
 					break;
 				}
@@ -110,5 +122,31 @@ public class SoundManager : MonoBehaviour {
 		else {
 			Debug.LogError("Sound number is out of bounds");
 		}
+	}
+
+	public static float GetMasterVolume() {
+		return Settings.masterVolume;
+	}
+
+	public static float GetBGMVolume() {
+		return Settings.bgmVolume;
+	}
+
+	public static float GetSoundFXVolume() {
+		return Settings.soundFXVolume;
+	}
+
+	public static void UpdateMasterVolume(float volume) {
+		Settings.masterVolume = volume;
+		AudioListener.volume = volume;
+	}
+
+	public static void UpdateBGMVolume(float volume) {
+		Settings.bgmVolume = volume;
+		instance.bgmPlayer.volume = volume;
+	}
+
+	public static void UpdateSoundFXVolume(float volume) {
+		Settings.soundFXVolume = volume;
 	}
 }
